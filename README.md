@@ -35,4 +35,23 @@ geslaagd(Student) :-
 toetscijfer(Student, Cijfer), Cijfer >= 5.5. /* Een Student is geslaagd als die Student een toetscijfer heeft,  
 waarbij zijn Cijfer >= 5.5 is */
 ```
+Met deze feiten en regels kunnen er query's opgesteld worden:
+```
+?- geslaagd(liam). /* Is liam geslaagd? */
+> true
+?- geslaagd(Student). /* Welke studenten zijn geslaagd? 
+Of beter: Voor welke waarden van Student geldt dat geslaagd(Student) true is? */
+> Student = liam
+```
+Vergeleken met Java is de syntax anders. Hier een uitleg van een aantal syntax elementen:
+```
+. -> einde van statement (Java: ;)
+:- -> if statement (Java: if)
+, -> logische AND (Java: &&)
+woordenZonderHoofdletter -> is een waarde/argument
+WoordenMetHoofdletter -> Een variabele
+?- -> Query
+```
+In Prolog worden er niet expliciet datatypen aangegeven voor variabelen. Bij bijvoorbeeld lists is het ook niet noodzakelijk dat alle elementen van hetzelfde datatype zijn.
 
+Ik heb mijn kennis opgedaan via video tutorials. Daar heb ik ook al meer voorbeelden gezien van onder andere lists, rekenen en recursie, maar die ga ik later verder onderzoeken en uitwerken in dit blog.
