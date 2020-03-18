@@ -1,4 +1,3 @@
-
 valide_rij(Rij, Clues) :-
     is_list(Rij), 
     is_list(Clues),
@@ -8,8 +7,6 @@ valide_rij(Rij, Clues) :-
 
 valide_element(Element) :-
     Element in 0..1.
-
-valide_reeks([], _) :- true,!.
 
 valide_reeks(Reeks, Clue):-
     length(Reeks, Clue).
