@@ -126,4 +126,4 @@ Y = 1.
 ```
 De valide_rij/2 werkt momenteel alleen nog voor het valideren van rijen, maar nog niet om mogelijke rijen op basis van gegeven Clues te genereren. Daarnaast moet het valideren ook voor kolommen werken. Ik heb hierover al iets gezien bij de sudoku solver, maar dit ga ik later toepassen voor mijn nonogram solver.
 
-De volledige code is te vinden in 
+De volledige code is te vinden in [nonogram-solver.pl](nonogram-solver.pl)
