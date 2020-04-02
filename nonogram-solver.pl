@@ -1,15 +1,28 @@
-valide_rij(Rij, Clues) :-
-    is_list(Rij), 
-    is_list(Clues),
+:- use_module(library(clpfd)).
+
+nonogram(PuzzelGrootte, HorizontaleClues, VerticaleClues,Rijen):-
+    valide_rijen(PuzzelGrootte, Rijen, HorizontaleClues),
+    transpose(Rijen, Kolommen),
+    valide_rijen(PuzzelGrootte, Kolommen, VerticaleClues).
+
+valide_rijen(PuzzelGrootte, Rijen, Clues) :-
+    maplist(valide_rij(PuzzelGrootte), Rijen, Clues).
+
+valide_rij(PuzzelGrootte, Rij, Clues) :-
+    length(Rij, PuzzelGrootte),
     maplist(valide_element, Rij),
     splits_reeksen(Rij, Reeksen),
     maplist(valide_reeks, Reeksen, Clues).
 
 valide_element(Element) :-
-    Element in 0..1.
+    Element is 1 | Element is 0.
+
+gevuld_vakje(Vakje) :-
+    Vakje is 1.
 
 valide_reeks(Reeks, Clue):-
-    length(Reeks, Clue).
+    length(Reeks, Clue),
+    maplist(gevuld_vakje, Reeks).
 
 splits_reeksen(Rij, Reeksen) :-
     split(Rij, 0, ReeksenMetLegen),
