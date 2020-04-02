@@ -2,6 +2,7 @@
 Deze blogpost geeft inzicht in mijn leerproces van Prolog en de implementatie van de nonogram solver.
 
 ## Waarom prolog?
+Voor de course APP heb ik een programmeertaal in een nieuw paradigma moeten leren. Hiervoor kon ik dus kiezen tussen functioneel en logisch programmeren. Ik neigde in eerste instantie naar functioneel programmeren, omdat die naar mijn vermoeden meer nut had in de beroepspraktijk. Ik vond echter wel interessant dat op basis van logica en redenatie geprogrammeerd kon worden. Ik kon de knoop hakken toen mijn docent een sudoku solver noemde als voorbeeldapplicatie voor logisch programmeren. Met mijn toenmalige verslaving aan nonogram puzzels, kon ik die keuze niet weigeren.
 
 ## Logisch programmeren
 Prolog is een programmeertaal volgens het logische programmeer paradigma.
@@ -199,3 +200,29 @@ nonogram(PuzzelGrootte, HorizontaleClues, VerticaleClues,Rijen):-
 
 Alle code bij elkaar is te vinden in [nonogram-solver.pl](nonogram-solver.pl)
 ## Resultaat
+Om te kijken of het eindresultaat werkte, heb ik een 5x5 nonogram van internet gehaald en in het programma gestopt:
+```
+?- nonogram(5, [[1,1],[2,2],[1],[3],[3]], [[2,2],[1,2],[2],[1],[3]], Nonogram).
+> Nonogram = [[1, 0, 0, 0, 1], [1, 1, 0, 1, 1], [0, 0, 0, 0, 1], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]]
+```
+En voilà! Zo had ik een werkende nonogram solver! Dit wilde ik ook testen met grotere puzzels, zoals een 10x10 puzzel:
+```
+?- nonogram(10,  [ [2],[3,2,3],[1,1,2,1],[2,1,1,3],[3,4],[1,2],[3,4],[2,4,2],[2,2,2] ], [ [4,1],[1,2,3],[1,1,1,1],[7],[2,2],[10],[1,4],[1,2,1,1],[1,3,3],[4,1] ], Nonogram).
+```
+Na lang wachten, kwam er geen resultaat. Hij was bezig met het proces, maar daar zag ik geen einde aan. Ik probeerde het met een 7x7 puzzel: die deed ruim een minuut over het antwoord.
+
+### Generate and test
+Mijn vermoeden was dat Prolog elke mogelijke oplossing uit ging proberen. Dit is immers hoe Prolog van nature werkt: het programma genereert een antwoord (bijvoorbeeld overal een 0 voor de nonogram), en voert backtracking uit om tot een uiteindelijke oplossing te komen. Deze manier heet "generate and test". Dit werkt prima voor kleine puzzels, omdat er weinig mogelijke combinaties zijn. Bij het vergroten van de puzzel, wordt het aantal mogelijke combinaties exponentioneel groter. Dit was dus erg inefficiënt.
+
+### Constraint logic programming
+Een manier die ik heb gevonden van de auteur van The Power of Prolog, was constraint logic programming. Met constraint programming worden er extra constraints gedefinieerd in rules, waardoor combinaties bij bepaalde waarden meteen worden uitgesloten. Door het uitsluiten van combinaties hoeft het programma veel minder combinaties te genereren, waardoor de snelheid bij grotere input waarden drastisch verlaagt.
+
+Omwille van de tijd kon ik mijn nonogram-solver helaas niet meer optimaliseren. 
+
+## Conclusie
+Ik vond Prolog een zeer interessante taal om mee te werken. Ik vind Prolog erg doeltreffend in het ontwikkelen van logische programma's, echter denk ik wel dat aantal toepassingen vergeleken met object-georiënteerd erg laag is. 
+Ik vind ook mooi dat Prolog regels puur zijn. Hierdoor zijn die regels individueel te testen en ontstaan er geen onverwachte bijwerkingen, zoals gewijzigde lists. 
+
+Over mijn nonogram solver ben ik best tevreden. De solver is in staat om in korte tijd 5x5 puzzels op te lossen, en in een langere, maar niet onmogelijke tijd, ook 7x7 puzzels. Ik vind wel dat de solver nog hevig geoptimaliseerd kan worden door constraint programming toe te passen. 
+
+Hoewel ik niet verwacht Prolog veel in mijn beroepspraktijk te moeten gebruiken, lijkt het me wel interessant om hier verder in te verdiepen. Bij een mogelijke (pre)master waar logisch programmeren vereist is, zal ik me vooral proberen te verdiepen op performance optimalisatie, door middel van bijvoorbeeld constraint programming.
