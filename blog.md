@@ -82,3 +82,25 @@ Vervolgens kunnen op de regels en feiten queries uitgevoerd worden. Met queries 
 > Dag = vandaag.
 % Hier zoekt het programma zelf mogelijke conclusies.
 ```
+
+## Prolog - Lists en recursie
+### Lists
+Prolog kent lists. Lists worden aangegeven via blokhaken. Lists zijn niet streng getypeerd zoals in Java, allerlei soorten datatypen
+mogen in een list worden geplaatst. Elk element kan anders zijn: een string, een nummer of zelfs nog een list.  
+
+Het ophalen van elementen uit een list in een rule, kan op verschillende manieren. Een typische manier van Prolog is via een head en een
+tail. De head is standaard het eerste element uit de list, en de tail is de rest van de list. Dit gedrag is vergelijkbaar met een stack of queue, waarin ook enkel de uiterste elementen benaderbaar zijn.  
+
+Als we bijvoorbeeld zouden bevestigen dat van een lijst dagen, het regent op de eerste dag, ziet dat er in code zo uit:
+```
+regen(maandag).
+regen_op_eerste_dag_in_lijst([H|_]) :-
+  regen(H).
+?- regen_op_eerste_dag_in_lijst([maandag, woensdag, zaterdag]).
+> true.
+```
+De onderscheid tussen head en tail wordt met de | gedaan. De underscore geeft aan dat er wel een tail is, maar dat we niet die tail
+verder als variabele nodig hebben.
+
+### Recursie
+
