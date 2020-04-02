@@ -52,6 +52,33 @@ Feiten zijn in dit geval eigenlijk een soort dataset. De syntax is ook eenvoudig
 en sluit af met een punt. De punt is vergelijkbaar met de puntkomma uit Java.
 
 ### Regels
-Regels is een combinatie van andere regels en feiten. Een voorbeeld:
-```blijft_binnen(Dag) :- regen(Dag).```
+Regels is een combinatie van andere regels en feiten. Een voorbeeld:  
+```blijft_binnen(Dag) :- regen(Dag).```   
 Een regel is als volgt te lezen: blijft_binnen, met een waarde Dag, geldt alleen als regen met als waarde Dag geldt.
+De syntax lijkt erg op die van een feit, met enkele verschillen:  
+:- is een if.   
+Variabelen worden altijd aangegeven met een hoofdletter. "dag" zou dus geen goede variabele zijn.  
+
+Nu lijkt deze regel vrij eenvoudig, omdat die gebaseerd is op een enkel feit. Maar we zouden de regel kunnen uitbreiden:  
+Liam blijft binnen wanneer het regent of wanneer het koud is.  
+
+In dat geval is de regel in code anders:
+```
+blijft_binnen(Dag) :-
+  regen(Dag);
+  koud(Dag).
+```
+In dit geval geeft de puntkomma een OF aan. Wanneer Liam een taaie is en pas binnen blijft als het zowel koud als nat is buiten, dan zou
+er een komma gebruikt moeten worden voor EN.
+
+### Queries
+Vervolgens kunnen op de regels en feiten queries uitgevoerd worden. Met queries kunnen conclusies bevestigd worden, maar kunnen ook conclusies gevonden worden. Queries beginnen met een vraagteken.
+```
+?- regen(vandaag).
+> true
+% Dit is een bevestiging van een conclusie (en dit is overigens een in-line comment).  
+
+?- regen(Dag).
+> Dag = vandaag.
+% Hier zoekt het programma zelf mogelijke conclusies.
+```
